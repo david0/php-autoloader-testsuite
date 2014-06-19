@@ -4,7 +4,7 @@ A testsuite for verifying autoloaders. This script will scan your project for to
 
 # Usage
 
-Download `php-autoloader-test.phar` and run using
+[Download](https://github.com/david0/php-autoloader-testsuite/releases) `php-autoloader-test.phar` and run using
 
     cd <your-project-root>
     php php-autoloader-test.phar <your bootstrap script> <path-to-sources>
