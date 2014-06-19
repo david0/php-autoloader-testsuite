@@ -1,0 +1,19 @@
+{
+    "require": {
+        "nikic/php-parser": "1.0.0-beta1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "@stable"
+    },
+    "autoload": {
+        "psr-0": {
+            "PhpAutoLoaderTest\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "PhpAutoLoaderTest\\Tests\\": "tests/"
+        }
+    },
+    "bin": ["src/main.php"]
+}
