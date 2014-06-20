@@ -52,6 +52,12 @@ class NameScannerTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(array($name), $this->getFullyQualifiedNames($usedClassNames));
     }
 
+    public function testDoesNotResolveUse() {
+        $file = new File('<?php use Foo;');
+        $usedClassNames = $this->scanner->collectClassNames($file);
+        $this->assertEmpty($usedClassNames);
+    }
+
     public function testResolveExtends() {
         $file = new File('<?php class Foo extends Bar {}');
         $usedClassNames = $this->scanner->collectClassNames($file);

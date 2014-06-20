@@ -29,10 +29,6 @@ class ClassNameCollectorVisitor extends NodeVisitorAbstract
             $this->nameDeclarations[] = new NameOccurance($node->class->toString(), $this->file);
         }
 
-        if ($node instanceof Stmt\UseUse) {
-            $this->nameDeclarations[] = new NameOccurance($node->name->toString(), $this->file);
-        }
-
         if ($node instanceof Stmt\Class_) {
             //$this->nameDeclarations[] = new NameOccurance($node->name, $this->file);
 
