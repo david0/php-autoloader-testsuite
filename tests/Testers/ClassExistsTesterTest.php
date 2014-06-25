@@ -1,6 +1,5 @@
 <?php
 
-
 namespace PhpAutoLoaderTest\tests\Testers;
 
 use PhpAutoLoaderTest\Testers\ClassExistsTester;

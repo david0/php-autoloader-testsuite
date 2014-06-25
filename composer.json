@@ -12,7 +12,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "PhpAutoLoaderTest\\Tests\\": "tests/"
+            "PhpAutoLoaderTest\\tests\\": "tests/"
         }
     },
     "bin": ["src/main.php"]

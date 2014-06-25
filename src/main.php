@@ -6,7 +6,7 @@
 $autoloader = require_once __DIR__.'/../vendor/autoload.php';
 
 use PhpAutoLoaderTest\File;
-use PhpAutoLoaderTest\Testers\ClassExistsTester;
+use PhpAutoLoaderTest\Testers\ProcessIsolationTester;
 
 if($argc!=3)
     die(sprintf("USAGE: %s [bootstrap] [directory]\n", $argv[0]));
@@ -35,7 +35,7 @@ foreach ($files as $fileName) {
     }
 }
 
-$tester = new ClassExistsTester($bootstrap);
+$tester = new ProcessIsolationTester($bootstrap);
 //unregister our autoloader and use foreign boostrap
 $autoloader->unregister();
 
