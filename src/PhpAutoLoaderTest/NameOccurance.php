@@ -8,7 +8,7 @@ class NameOccurance {
     private $file;
     private $fullyQualifiedName;
 
-    public function __construct($fullyQualifiedName, File $file) {
+    public function __construct($fullyQualifiedName, File $file=null) {
         $this->fullyQualifiedName = $fullyQualifiedName;
         $this->file = $file;
     }
