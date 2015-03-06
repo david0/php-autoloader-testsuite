@@ -72,6 +72,12 @@ class NameScannerTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(array('Bar', 'X'), $this->getFullyQualifiedNames($usedClassNames));
     }
 
+    public function testResolvesTypeHints() {
+        $file = new File('<?php class Foo { public function f1(Bar $bar){} }');
+        $usedClassNames = $this->scanner->collectClassNames($file);
+
+        $this->assertEquals(array('Bar'), $this->getFullyQualifiedNames($usedClassNames));
+    }
 
     public function keywordProvider() {
         return array(
@@ -98,7 +104,6 @@ class NameScannerTest extends \PHPUnit_Framework_TestCase {
         $this->assertCount(1, $usedClassNames);
         $this->assertEquals($file, $usedClassNames[0]->file());
     }
-
 
     /**
      * Extract FQNs from name occurrances

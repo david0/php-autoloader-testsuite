@@ -3,12 +3,16 @@
 
 namespace PhpAutoLoaderTest;
 
-use PHPParser\Node;
-use PHPParser\Node\Name;
+use PhpParser\Node;
+use PhpParser\Node\Name;
 use PhpParser\Node\Stmt;
-use PHPParser\Node\Expr;
+use PhpParser\Node\Expr;
+use PhpParser\Node\Param;
 use PhpParser\NodeVisitorAbstract;
 
+/**
+ * Visitor that collects all class names that would trigger the autoload chain
+ */
 class ClassNameCollectorVisitor extends NodeVisitorAbstract
 {
     private $nameDeclarations = array();
@@ -28,6 +32,12 @@ class ClassNameCollectorVisitor extends NodeVisitorAbstract
         ) {
             $this->nameDeclarations[] = new NameOccurance($node->class->toString(), $this->file);
         }
+
+        // Function parameter type hints
+        if($node instanceof Param)
+            foreach($node as $subnode)
+                if($subnode instanceof Name)
+                 $this->nameDeclarations[] = new NameOccurance($subnode->toString(), $this->file);
 
         if ($node instanceof Stmt\Class_) {
             //$this->nameDeclarations[] = new NameOccurance($node->name, $this->file);
