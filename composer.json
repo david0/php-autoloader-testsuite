@@ -1,9 +1,9 @@
 {
     "require": {
-        "nikic/php-parser": "1.0.0-beta1"
+        "nikic/php-parser": "1.*"
     },
     "require-dev": {
-        "phpunit/phpunit": "@stable"
+        "phpunit/phpunit": "4.*"
     },
     "autoload": {
         "psr-0": {
