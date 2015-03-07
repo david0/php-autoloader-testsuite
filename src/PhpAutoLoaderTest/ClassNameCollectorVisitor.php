@@ -19,11 +19,13 @@ class ClassNameCollectorVisitor extends NodeVisitorAbstract
 
     private $file;
 
-    public function __construct(File $file) {
+    public function __construct(File $file)
+    {
         $this->file = $file;
     }
 
-    public function enterNode(Node $node) {
+    public function enterNode(Node $node)
+    {
 
 
         if (($node instanceof Expr\New_ && $node->class instanceof Name) or
@@ -34,10 +36,10 @@ class ClassNameCollectorVisitor extends NodeVisitorAbstract
         }
 
         // Function parameter type hints
-        if($node instanceof Param)
-            foreach($node as $subnode)
-                if($subnode instanceof Name)
-                 $this->nameDeclarations[] = new NameOccurance($subnode->toString(), $this->file);
+        if ($node instanceof Param)
+            foreach ($node as $subnode)
+                if ($subnode instanceof Name)
+                    $this->nameDeclarations[] = new NameOccurance($subnode->toString(), $this->file);
 
         if ($node instanceof Stmt\Class_) {
             //$this->nameDeclarations[] = new NameOccurance($node->name, $this->file);

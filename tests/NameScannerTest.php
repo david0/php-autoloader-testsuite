@@ -11,14 +11,16 @@ use PhpAutoLoaderTest\NameScanner;
  *
  * @coversDefault NameScanner
  */
-class NameScannerTest extends \PHPUnit_Framework_TestCase {
+class NameScannerTest extends \PHPUnit_Framework_TestCase
+{
 
     /**
      * @var NameScanner
      */
     private $scanner;
 
-    public function setUp(){
+    public function setUp()
+    {
         $this->scanner = new NameScanner();
     }
 
@@ -27,13 +29,14 @@ class NameScannerTest extends \PHPUnit_Framework_TestCase {
      * that is relevant for the autoloader
      * @return array
      */
-    public function codeNamesProvider() {
+    public function codeNamesProvider()
+    {
         return array(
-          array('<?php new Bar(); ', 'Bar'),
-          array('<?php namespace Foo; new Bar(); ', 'Foo\Bar'),
-          //array('<?php use A\B; new B\C(); ', 'A\B\C'),
-          array('<?php Bar::CONSTANT; ', 'Bar'),
-          array('<?php Foo::bar(); ', 'Foo')
+            array('<?php new Bar(); ', 'Bar'),
+            array('<?php namespace Foo; new Bar(); ', 'Foo\Bar'),
+            //array('<?php use A\B; new B\C(); ', 'A\B\C'),
+            array('<?php Bar::CONSTANT; ', 'Bar'),
+            array('<?php Foo::bar(); ', 'Foo')
         );
     }
 
@@ -45,41 +48,47 @@ class NameScannerTest extends \PHPUnit_Framework_TestCase {
      * @param string $code
      * @param string $name
      */
-    public function testResolveCodeName($code, $name) {
+    public function testResolveCodeName($code, $name)
+    {
         $file = new File($code);
         $usedClassNames = $this->scanner->collectClassNames($file);
 
         $this->assertEquals(array($name), $this->getFullyQualifiedNames($usedClassNames));
     }
 
-    public function testDoesNotResolveUse() {
+    public function testDoesNotResolveUse()
+    {
         $file = new File('<?php use Foo;');
         $usedClassNames = $this->scanner->collectClassNames($file);
         $this->assertEmpty($usedClassNames);
     }
 
-    public function testResolveExtends() {
+    public function testResolveExtends()
+    {
         $file = new File('<?php class Foo extends Bar {}');
         $usedClassNames = $this->scanner->collectClassNames($file);
 
         $this->assertEquals(array('Bar'), $this->getFullyQualifiedNames($usedClassNames));
     }
 
-    public function testResolveImplements() {
+    public function testResolveImplements()
+    {
         $file = new File('<?php class Foo implements Bar, X {}');
         $usedClassNames = $this->scanner->collectClassNames($file);
 
         $this->assertEquals(array('Bar', 'X'), $this->getFullyQualifiedNames($usedClassNames));
     }
 
-    public function testResolvesTypeHints() {
+    public function testResolvesTypeHints()
+    {
         $file = new File('<?php class Foo { public function f1(Bar $bar){} }');
         $usedClassNames = $this->scanner->collectClassNames($file);
 
         $this->assertEquals(array('Bar'), $this->getFullyQualifiedNames($usedClassNames));
     }
 
-    public function keywordProvider() {
+    public function keywordProvider()
+    {
         return array(
             array('parent'),
             array('self'),
@@ -90,15 +99,17 @@ class NameScannerTest extends \PHPUnit_Framework_TestCase {
     /**
      * @dataProvider keywordProvider
      */
-    public function testWillNotResolveKeywords($keyword) {
+    public function testWillNotResolveKeywords($keyword)
+    {
         $file = new File("<?php $keyword::bar; ");
         $usedClassNames = $this->scanner->collectClassNames($file);
 
         $this->assertEmpty($usedClassNames);
     }
 
-    public function testSetsFileName() {
-        $file = new File('<?php new Foo();','Foo.php');
+    public function testSetsFileName()
+    {
+        $file = new File('<?php new Foo();', 'Foo.php');
         $usedClassNames = $this->scanner->collectClassNames($file);
 
         $this->assertCount(1, $usedClassNames);
@@ -111,8 +122,11 @@ class NameScannerTest extends \PHPUnit_Framework_TestCase {
      * @param NameOccurance[] $names
      * @return string
      */
-    private function getFullyQualifiedNames(array $names) {
-        return array_map(function ($e) {return $e->fullyQualifiedName();}, $names);
+    private function getFullyQualifiedNames(array $names)
+    {
+        return array_map(function ($e) {
+            return $e->fullyQualifiedName();
+        }, $names);
     }
 }
  

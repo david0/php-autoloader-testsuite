@@ -3,12 +3,14 @@
 namespace PhpAutoLoaderTest;
 
 
-class NameOccurance {
+class NameOccurance
+{
 
     private $file;
     private $fullyQualifiedName;
 
-    public function __construct($fullyQualifiedName, File $file=null) {
+    public function __construct($fullyQualifiedName, File $file = null)
+    {
         $this->fullyQualifiedName = $fullyQualifiedName;
         $this->file = $file;
     }
@@ -24,8 +26,9 @@ class NameOccurance {
     /**
      * @return File
      */
-    public function file() {
-       return $this->file;
+    public function file()
+    {
+        return $this->file;
     }
 
 }
